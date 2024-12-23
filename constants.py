@@ -1,0 +1,4 @@
+#window
+
+WINW, WINH = 1000, 800
+BGCOLOR = (255,255,255)
