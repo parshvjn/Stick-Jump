@@ -7,4 +7,4 @@ BGCOLOR = (255,255,255)
 
 TOPY = 750
 TILESONSCREEN = 20 #take num divisb le by WINW, and where x/2 != decimal
-SPEED = 0.5
+SPEED = 1

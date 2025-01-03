@@ -1,7 +1,10 @@
+import time
 import math
 import pygame, os
 
 BASE_IMG_PATH = 'assets/'
+pygame.init()
+my_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 def load_image(path, scaleFactor = [0, 0]):
     img = pygame.image.load(BASE_IMG_PATH + path).convert() #.covert() makes it more efficient for rendering(performance)
@@ -15,8 +18,16 @@ def load_images(path, scaleFactor = 1):
         images.append(load_image(path + '/' + img_name, scaleFactor))
     return images
 
+def text(win, text, pos, color):
+    text_surface = my_font.render(text, False, color)
+    win.blit(text_surface, pos)
+
 def distance(x1, x2, y1, y2, distRequire, moveDist):
     return [[x2-x1 if abs(x2-x1) <= (distRequire[0]+moveDist) and abs(x2-x1) > distRequire[0] else 0], math.sqrt( (x2 - x1)**2 + (y2 - y1)**2 )]
+
+def save(high):
+    with open('data.txt', 'w') as f:
+        f.write(f'HighSchore:{high}')
 
 class Animation:
     def __init__(self, images, img_dur = 5, loop = True):
@@ -39,3 +50,17 @@ class Animation:
     
     def img(self):
         return self.images[int(self.frame / self.img_duration)] #used to know what img to use
+    
+
+class Timer:
+    def __init__(self, timeAmount):
+        self.start_time = time.time()
+        self.amount = timeAmount
+
+    def count(self):
+        elapsed_time = time.time() - self.start_time
+        return elapsed_time>=self.amount
+
+    def redo(self):
+        self.start_time = time.time()
+    
